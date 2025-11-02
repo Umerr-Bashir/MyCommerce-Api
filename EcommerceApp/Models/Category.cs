@@ -17,6 +17,6 @@ namespace ECommerceApp.Models
 
         public bool IsActive { get; set; }
 
-        //public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

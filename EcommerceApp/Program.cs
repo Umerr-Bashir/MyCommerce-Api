@@ -3,6 +3,7 @@ using EcommerceApp.Service.Address_Service;
 using EcommerceApp.Service.AuthService;
 using EcommerceApp.Service.Customer_Service;
 using ECommerceApp.Services;
+using ECommerceApp.Services.CategoryService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -42,7 +43,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
