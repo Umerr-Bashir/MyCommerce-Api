@@ -2,6 +2,7 @@ using EcommerceApp.Data;
 using EcommerceApp.Service.Address_Service;
 using EcommerceApp.Service.AuthService;
 using EcommerceApp.Service.Customer_Service;
+using EcommerceApp.Services.ProductService;
 using ECommerceApp.Services;
 using ECommerceApp.Services.CategoryService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -44,6 +45,8 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>(); 
+
 
 var app = builder.Build();
 
