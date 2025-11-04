@@ -17,12 +17,10 @@ namespace ECommerceApp.Services
         {
             try
             {
-                // Checking the same product
                 if (await _context.Products.AnyAsync(p => p.Name.ToLower() == productDto.Name.ToLower()))
                 {
                     return new ApiResponse<ProductResponseDTO>(400, "Product name already exists.");
                 }
-                // Check if Category exists
                 if (!await _context.Categories.AnyAsync(cat => cat.Id == productDto.CategoryId))
                 {
                     return new ApiResponse<ProductResponseDTO>(400, "Specified category does not exist.");
@@ -114,7 +112,6 @@ namespace ECommerceApp.Services
                 {
                     return new ApiResponse<ConfirmationResponseDTO>(400, "Specified category does not exist.");
                 }
-                // Update product properties manually
                 product.Name = productDto.Name;
                 product.Description = productDto.Description;
                 product.Price = productDto.Price;
@@ -192,7 +189,6 @@ namespace ECommerceApp.Services
         {
             try
             {
-                // Retrieve products associated with the specified category
                 var products = await _context.Products
                 .AsNoTracking()
                 .Include(p => p.Category)

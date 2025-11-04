@@ -33,8 +33,7 @@ namespace EcommerceApp.Service.Address_Service
                 PermanentAddress = addressDto.PermanentAddress,
                 City = addressDto.City,
                 State = addressDto.State,
-                PostalCode = addressDto.PostalCode,
-                Country = addressDto.Country
+                PostalCode = addressDto.PostalCode
             };
 
             _context.Addresses.Add(address);
@@ -61,9 +60,7 @@ namespace EcommerceApp.Service.Address_Service
                 PermanentAddress = address.PermanentAddress,
                 City = address.City,
                 State = address.State,
-                PostalCode = address.PostalCode,
-                Country = address.Country
-
+                PostalCode = address.PostalCode
             };
 
             return new ApiResponse<AddressResponseDTO>(200, dto);
@@ -83,7 +80,6 @@ namespace EcommerceApp.Service.Address_Service
             address.City = addressDto.City;
             address.State = addressDto.State;
             address.PostalCode = addressDto.PostalCode;
-            address.Country = addressDto.Country;
 
             await _context.SaveChangesAsync();
 
@@ -128,8 +124,7 @@ namespace EcommerceApp.Service.Address_Service
                 PermanentAddress = a.PermanentAddress,
                 City = a.City,
                 State = a.State,
-                PostalCode = a.PostalCode,
-                Country = a.Country
+                PostalCode = a.PostalCode
             }).ToList();
 
             return new ApiResponse<List<AddressResponseDTO>>(200, list);

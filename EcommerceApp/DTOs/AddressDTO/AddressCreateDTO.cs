@@ -32,11 +32,6 @@ namespace EcommerceApp.DTOs.AddressDTO
         public string PostalCode { get; set; }
 
 
-        [Required]
-        [StringLength(10, MinimumLength = 5, ErrorMessage = "Country is required")]
-        public string Country { get; set; }
-
-
 
     }
 }
