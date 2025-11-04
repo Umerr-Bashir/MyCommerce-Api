@@ -2,6 +2,7 @@ using EcommerceApp.Data;
 using EcommerceApp.Service.Address_Service;
 using EcommerceApp.Service.AuthService;
 using EcommerceApp.Service.Customer_Service;
+using EcommerceApp.Services.OrderService;
 using EcommerceApp.Services.ProductService;
 using EcommerceApp.Services.ShoppingCartService;
 using ECommerceApp.Services;
@@ -48,6 +49,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 
