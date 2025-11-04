@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerceApp.DTOs.AddressesDTOs
 {
@@ -31,8 +32,10 @@ namespace ECommerceApp.DTOs.AddressesDTOs
         [RegularExpression(@"^\d{4,6}$", ErrorMessage = "Invalid Postal Code.")]
         public string PostalCode { get; set; }
 
+
         [Required(ErrorMessage = "Country is required.")]
         [StringLength(50, ErrorMessage = "Country cannot exceed 50 characters.")]
+        [Column(TypeName = "nvarchar(50)")]
         public string Country { get; set; }
     }
 }

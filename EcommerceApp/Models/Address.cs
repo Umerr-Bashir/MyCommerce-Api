@@ -29,9 +29,10 @@ namespace EcommerceApp.Models
 
 
 
-        [Required]
-        [StringLength(10,MinimumLength =5,ErrorMessage ="Country is required")]
-        public string  Country { get; set; }
+        [Required(ErrorMessage = "Country is required.")]
+        [StringLength(50, ErrorMessage = "Country cannot exceed 50 characters.")]
+        [Column(TypeName = "nvarchar(50)")]
+        public string Country { get; set; }
 
         [Required]
         [StringLength(10, MinimumLength = 3, ErrorMessage = "State is required")]
