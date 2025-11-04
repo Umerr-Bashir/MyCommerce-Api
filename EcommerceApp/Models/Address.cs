@@ -49,7 +49,7 @@ namespace EcommerceApp.Models
 
 
         [Required]
-        [StringLength(8,MinimumLength =6 , ErrorMessage ="Postal code is required")]
+        [StringLength(8,MinimumLength = 4 , ErrorMessage ="Postal code is required")]
         public string  PostalCode { get; set; }
 
 

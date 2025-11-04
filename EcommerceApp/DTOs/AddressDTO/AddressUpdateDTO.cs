@@ -29,7 +29,7 @@ namespace ECommerceApp.DTOs.AddressesDTOs
         public string State { get; set; }
 
         [Required(ErrorMessage = "Postal Code is required.")]
-        [RegularExpression(@"^\d{4,6}$", ErrorMessage = "Invalid Postal Code.")]
+        [StringLength(8, MinimumLength = 4, ErrorMessage = "Postal code is required")]
         public string PostalCode { get; set; }
 
 
