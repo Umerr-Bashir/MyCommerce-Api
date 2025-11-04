@@ -1,4 +1,5 @@
 ﻿using EcommerceApp.DTOs;
+using EcommerceApp.Services.ProductService;
 using ECommerceApp.DTOs;
 using ECommerceApp.DTOs.ProductDTOs;
 using ECommerceApp.Services;
@@ -9,9 +10,9 @@ namespace EcommerceApp.Contoller.ProductsController
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
         // Injecting the ProductService
-        public ProductsController(ProductService productService)
+        public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
