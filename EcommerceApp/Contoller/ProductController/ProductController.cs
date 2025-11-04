@@ -3,7 +3,7 @@ using ECommerceApp.DTOs;
 using ECommerceApp.DTOs.ProductDTOs;
 using ECommerceApp.Services;
 using Microsoft.AspNetCore.Mvc;
-namespace ECommerceApp.Controllers
+namespace EcommerceApp.Contoller.ProductController
 {
     [ApiController]
     [Route("api/[controller]")]
