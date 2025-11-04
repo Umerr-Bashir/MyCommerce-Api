@@ -24,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contoller\ProductController\" />
+    <Folder Include="Contoller\ShoppingCartController\" />
+    <Folder Include="DTOs\ShoppingCartDTO\" />
   </ItemGroup>
 
 </Project>
