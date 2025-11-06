@@ -2,8 +2,11 @@ using EcommerceApp.Data;
 using EcommerceApp.Service.Address_Service;
 using EcommerceApp.Service.AuthService;
 using EcommerceApp.Service.Customer_Service;
+using EcommerceApp.Services.CancellationService;
 using EcommerceApp.Services.OrderService;
+using EcommerceApp.Services.PaymentService;
 using EcommerceApp.Services.ProductService;
+using EcommerceApp.Services.RefundService;
 using EcommerceApp.Services.ShoppingCartService;
 using ECommerceApp.Services;
 using ECommerceApp.Services.CategoryService;
@@ -50,6 +53,10 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<ICancellationService, CancellationService>();
+builder.Services.AddScoped<IRefundService, RefundService>();
 
 
 

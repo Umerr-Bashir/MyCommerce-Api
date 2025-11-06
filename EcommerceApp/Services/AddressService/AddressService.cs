@@ -27,15 +27,15 @@ namespace EcommerceApp.Service.Address_Service
                 return new ApiResponse<ConfirmationResponseDTO>(404, "Customer not found.");
 
             var address = new Address
-            {  
+            {   
                 CustomerId = addressDto.CustomerId,
                 PresentAddress = addressDto.PresentAddress,
                 PermanentAddress = addressDto.PermanentAddress,
                 City = addressDto.City,
                 State = addressDto.State,
                 PostalCode = addressDto.PostalCode,
-                Country=addressDto.Country
-
+                Country=addressDto.Country,
+               
             };
 
             _context.Addresses.Add(address);
