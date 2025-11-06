@@ -42,6 +42,7 @@ namespace EcommerceApp.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public bool IsActive { get; set; }
 
+        public string Roles { get; set; }
         //Relationships
         public ICollection<Address> Addresses { get; set; }
         public ICollection<Order> Orders { get; set; }
