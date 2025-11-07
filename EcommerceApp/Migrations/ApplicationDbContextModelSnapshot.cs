@@ -521,8 +521,8 @@ namespace EcommerceApp.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -593,6 +593,10 @@ namespace EcommerceApp.Migrations
                         .IsRequired()
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
+
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

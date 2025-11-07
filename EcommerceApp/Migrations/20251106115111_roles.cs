@@ -1,11 +1,16 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace EcommerceApp.Migrations
 {
-    public partial class init : Migration
+    /// <inheritdoc />
+    public partial class roles : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -36,7 +41,8 @@ namespace EcommerceApp.Migrations
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,7 +97,7 @@ namespace EcommerceApp.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     PresentAddress = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     PermanentAddress = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     State = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     City = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     PostalCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)

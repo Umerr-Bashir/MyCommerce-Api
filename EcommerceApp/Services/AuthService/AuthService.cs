@@ -3,6 +3,9 @@ using EcommerceApp.DTOs;
 using EcommerceApp.DTOs.CustomerDTO;
 using EcommerceApp.Models;
 using ECommerceApp.DTOs.CustomerDTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,6 +42,7 @@ namespace EcommerceApp.Service.AuthService
                     PhoneNumber = customerDto.PhoneNumber,
                     DateOfBirth = customerDto.DateOfBirth,
                     IsActive = true,
+                    Roles = "user",
                     // Hash the password using BCrypt
                     Password = BCrypt.Net.BCrypt.HashPassword(customerDto.Password)
                 };
@@ -53,7 +57,8 @@ namespace EcommerceApp.Service.AuthService
                     LastName = customer.LastName,
                     Email = customer.Email,
                     PhoneNumber = customer.PhoneNumber,
-                    DateOfBirth = customer.DateOfBirth
+                    DateOfBirth = customer.DateOfBirth,
+                    Roles = customer.Roles
                 };
                 return new ApiResponse<CustomerResponseDTO>(200, customerResponse);
             }
@@ -87,7 +92,8 @@ namespace EcommerceApp.Service.AuthService
                     Message = "Login successful.",
                     CustomerId = customer.Id,
                     CustomerName = $"{customer.FirstName} {customer.LastName}",
-                    Token = CreateToken(customer)
+                    Token = CreateToken(customer),
+                    Roles = customer.Roles,
                 };
                 return new ApiResponse<LoginResponseDTO>(200, loginResponse);
             }
@@ -129,6 +135,8 @@ namespace EcommerceApp.Service.AuthService
                 return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
             }
         }
+
+        
 
         private string CreateToken(Customer customer) {
             var claims = new List<Claim>

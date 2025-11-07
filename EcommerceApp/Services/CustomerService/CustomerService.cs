@@ -37,7 +37,8 @@ namespace ECommerceApp.Services
                     LastName = customer.LastName,
                     Email = customer.Email,
                     PhoneNumber = customer.PhoneNumber,
-                    DateOfBirth = customer.DateOfBirth
+                    DateOfBirth = customer.DateOfBirth,
+                    Roles = customer.Roles,
                 };
                 return new ApiResponse<CustomerResponseDTO>(200, customerResponse);
             }
