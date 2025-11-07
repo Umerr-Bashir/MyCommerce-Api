@@ -15,8 +15,7 @@ namespace ECommerceValidationDemo.Controllers
         {
             _refundService = refundService;
         }
-        // GET: api/Refunds/GetEligibleRefunds
-        // Returns approved cancellations that have no associated refund entry.
+
         [HttpGet("GetEligibleRefunds")]
         public async Task<ActionResult<ApiResponse<List<PendingRefundResponseDTO>>>> GetEligibleRefunds()
         {

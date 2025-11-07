@@ -3,6 +3,7 @@ using EcommerceApp.Service.Address_Service;
 using EcommerceApp.Service.AuthService;
 using EcommerceApp.Service.Customer_Service;
 using EcommerceApp.Services.CancellationService;
+using EcommerceApp.Services.FeedbackService;
 using EcommerceApp.Services.OrderService;
 using EcommerceApp.Services.PaymentService;
 using EcommerceApp.Services.ProductService;
@@ -57,6 +58,7 @@ builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ICancellationService, CancellationService>();
 builder.Services.AddScoped<IRefundService, RefundService>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
 
 
