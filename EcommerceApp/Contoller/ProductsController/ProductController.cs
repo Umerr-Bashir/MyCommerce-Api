@@ -18,7 +18,7 @@ namespace EcommerceApp.Contoller.ProductsController
         }
         // Creates a new product.
         [HttpPost("CreateProduct")]
-        public async Task<ActionResult<ApiResponse<ProductResponseDTO>>> CreateProduct([FromBody] ProductCreateDTO productDto)
+        public async Task<ActionResult<ApiResponse<ProductResponseDTO>>> CreateProduct([FromForm] ProductCreateDTO productDto)
         {
             var response = await _productService.CreateProductAsync(productDto);
             if (response.StatusCode != 200)

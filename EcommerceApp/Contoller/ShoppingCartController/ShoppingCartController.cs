@@ -64,7 +64,7 @@ namespace ECommerceApp.Controllers
 
 
 
-        [HttpDelete("RemoveCartItem")]
+        [HttpPost("RemoveCartItem")]
         public async Task<ActionResult<ApiResponse<CartResponseDTO>>> RemoveCartItem([FromBody] RemoveCartItemDTO removeCartItemDTO)
         {
             var response = await _shoppingCartService.RemoveCartItemAsync(removeCartItemDTO);

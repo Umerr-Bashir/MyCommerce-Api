@@ -9,30 +9,53 @@ namespace ECommerceApp.Services
     public class ProductService : IProductService
     {
         private readonly ApplicationDbContext _context;
+        public string imagePath;
         public ProductService(ApplicationDbContext context)
         {
             _context = context;
         }
+
         public async Task<ApiResponse<ProductResponseDTO>> CreateProductAsync(ProductCreateDTO productDto)
         {
             try
             {
                 if (await _context.Products.AnyAsync(p => p.Name.ToLower() == productDto.Name.ToLower()))
                 {
-                    return new ApiResponse<ProductResponseDTO>(400, "Product name already exists.");
+                    return new ApiResponse<ProductResponseDTO>(400, errors: new List<string>() { "Product name already exists." });
                 }
                 if (!await _context.Categories.AnyAsync(cat => cat.Id == productDto.CategoryId))
                 {
-                    return new ApiResponse<ProductResponseDTO>(400, "Specified category does not exist.");
+                    return new ApiResponse<ProductResponseDTO>(400, errors: new List<string>() { "Specified category does not exist." });
                 }
-             
+
+                // file uploaded, save it
+                if (productDto.ImageUrl != null && productDto.ImageUrl.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products");
+
+                    if (!Directory.Exists(uploadsFolder))
+                        Directory.CreateDirectory(uploadsFolder);
+
+                    string extension = Path.GetExtension(productDto.ImageUrl.FileName);
+                    string uniqueFileName = Guid.NewGuid() + extension;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await productDto.ImageUrl.CopyToAsync(fileStream);
+                    }
+
+                    // Save relative path in DB
+                    imagePath = "/images/products/" + uniqueFileName;
+                }
+
                 var product = new Product
                 {
                     Name = productDto.Name,
                     Description = productDto.Description,
                     Price = productDto.Price,
                     StockQuantity = productDto.StockQuantity,
-                    ImageUrl = productDto.ImageUrl,
+                    ImageUrl = imagePath,
                     DiscountPercentage = productDto.DiscountPercentage,
                     CategoryId = productDto.CategoryId,
                     IsAvailable = true
@@ -58,7 +81,7 @@ namespace ECommerceApp.Services
             catch (Exception ex)
             {
               
-                return new ApiResponse<ProductResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
+                return new ApiResponse<ProductResponseDTO>(500, errors: new List<string>() { $"An unexpected error occurred while processing your request, Error: {ex.Message}" });
             }
         }
         public async Task<ApiResponse<ProductResponseDTO>> GetProductByIdAsync(int id)

@@ -3,6 +3,7 @@ using EcommerceApp.DTOs.CustomerDTO;
 using EcommerceApp.Service.AuthService;
 using EcommerceApp.Service.Customer_Service;
 using ECommerceApp.DTOs.CustomerDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,13 @@ namespace EcommerceApp.Contoller.AuthController
                 return StatusCode((int)response.StatusCode, response);
             }
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult AdminCheck()
+        {
+            return Ok();
         }
     }
 }
