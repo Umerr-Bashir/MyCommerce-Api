@@ -16,7 +16,7 @@ namespace ECommerceApp.Models
         [MinLength(10, ErrorMessage = "Description must be at least 10 characters.")]
         public string Description { get; set; }
 
-        [Range(0.01, 10000.00, ErrorMessage = "Price must be between $0.01 and $10,000.00.")]
+        [Range(0.01, 1000000.00, ErrorMessage = "Price must be between $0.01 and $10,00000.00.")]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
