@@ -14,6 +14,7 @@ using ECommerceApp.Services.CategoryService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddControllers()
 // Swagger for API testing
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 // Configure EF Core with SQL Server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -47,22 +49,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     }) ;
 
 // Register your services
-builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerService, ECommerceApp.Services.CustomerService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, ECommerceApp.Services.ProductService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ICancellationService, CancellationService>();
-builder.Services.AddScoped<IRefundService, RefundService>();
+builder.Services.AddScoped<IRefundService, ECommerceApp.Services.RefundService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
 
 
 var app = builder.Build();
+
 
 // Configure HTTP pipeline
 if (app.Environment.IsDevelopment())

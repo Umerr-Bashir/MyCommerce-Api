@@ -1,4 +1,5 @@
 ﻿using EcommerceApp.DTOs;
+using EcommerceApp.DTOs.PaymentDTO;
 using EcommerceApp.Services.PaymentService;
 using ECommerceApp.DTOs;
 using ECommerceApp.DTOs.PaymentDTOs;
@@ -70,5 +71,28 @@ namespace ECommerceApp.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost("StripeCheckout")]
+        public async Task<ActionResult<string>> StripeCheckout(StripeCheckoutDTO req)
+        {
+            var response =  await _paymentService.CreateCheckoutSessionAsync(req);
+            if (response== null)
+            {
+                return StatusCode(404, "Payment Processing Error");
+            }
+            return Ok(response);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

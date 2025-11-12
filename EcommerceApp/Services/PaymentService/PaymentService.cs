@@ -1,20 +1,28 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.DTOs;
+using EcommerceApp.DTOs.PaymentDTO;
 using EcommerceApp.Services.PaymentService;
 using ECommerceApp.DTOs;
 using ECommerceApp.DTOs.PaymentDTOs;
 using ECommerceApp.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
+using Stripe.Checkout;
+using System;
 namespace ECommerceApp.Services
 {
     public class PaymentService : IPaymentService
     {
         private readonly ApplicationDbContext _context;
         private readonly EmailService _emailService;
-        public PaymentService(ApplicationDbContext context, EmailService emailService)
+        private readonly IConfiguration _configuration;
+        public PaymentService(ApplicationDbContext context, EmailService emailService, IConfiguration configuration)
         {
             _context = context;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
 
@@ -264,7 +272,40 @@ namespace ECommerceApp.Services
         }
 
 
+        public async Task<string> CreateCheckoutSessionAsync(StripeCheckoutDTO req)
+        {
+            // Set secret key
+            StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
 
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string> { "card" },
+                LineItems = new List<SessionLineItemOptions>
+            {
+                new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        Currency = req.Currency,
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = req.ProductName
+                        },
+                        UnitAmount = req.UnitPrice, 
+                    },
+                    Quantity = req.Quantity
+                }
+            },
+                Mode = "payment",
+                SuccessUrl = $"{req.BaseUrl}/payment-success",
+                CancelUrl = $"{req.BaseUrl}/payment-cancel"
+            };
+
+            var service = new SessionService();
+            var session = await service.CreateAsync(options);
+
+            return session.Url; 
+        }
 
 
 
