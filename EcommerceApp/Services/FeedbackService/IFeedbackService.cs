@@ -1,4 +1,5 @@
 ﻿using EcommerceApp.DTOs;
+using EcommerceApp.DTOs.FeedbackDTO;
 using ECommerceApp.DTOs.FeedbackDTOs;
 
 namespace EcommerceApp.Services.FeedbackService
@@ -13,7 +14,7 @@ namespace EcommerceApp.Services.FeedbackService
         Task<ApiResponse<FeedbackResponseDTO>> UpdateFeedbackAsync(FeedbackUpdateDTO feedbackUpdateDTO);
 
         Task<ApiResponse<ConfirmationResponseDTO>> DeleteFeedbackAsync(FeedbackDeleteDTO feedbackDeleteDTO);
-
+        Task<ApiResponse<FeedbackResponseDTO>> GetProductByCustomerId(FeedbackByCustomerIdDTO FeedbackByCustomerIdDTO);
 
 
     }

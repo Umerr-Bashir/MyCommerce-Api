@@ -1,5 +1,6 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.DTOs;
+using EcommerceApp.DTOs.FeedbackDTO;
 using EcommerceApp.Services.FeedbackService;
 using ECommerceApp.DTOs;
 using ECommerceApp.DTOs.FeedbackDTOs;
@@ -92,6 +93,43 @@ namespace ECommerceApp.Services
                 return new ApiResponse<FeedbackResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
             }
         }
+
+        
+        // Get feedback by product id
+        public async Task<ApiResponse<FeedbackResponseDTO>> GetProductByCustomerId(FeedbackByCustomerIdDTO FeedbackByCustomerId)
+        {
+            try
+            {
+                var product = await _context.Feedbacks
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Id == FeedbackByCustomerId.CustomerId);
+
+                if (product == null)
+                {
+                    return new ApiResponse<FeedbackResponseDTO>(404, "Product not found.");
+                }
+
+                var response = new FeedbackResponseDTO
+                {
+                    ProductId = product.Id,
+                    Rating = product.Rating,
+                    Comment = product.Comment,
+                    CreatedAt = product.CreatedAt,
+                    UpdatedAt = product.UpdatedAt,
+                    CustomerId = product.CustomerId,
+                    CustomerName = $"{product.Customer.FirstName} {product.Customer.LastName}"
+                };
+
+              
+                return new ApiResponse<FeedbackResponseDTO>(200, response);
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<FeedbackResponseDTO>(500, $"An unexpected error occurred: {ex.Message}");
+            }
+        }
+
+
 
 
 

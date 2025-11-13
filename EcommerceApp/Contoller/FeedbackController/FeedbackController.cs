@@ -1,9 +1,11 @@
 ﻿using EcommerceApp.DTOs;
+using EcommerceApp.DTOs.FeedbackDTO;
 using EcommerceApp.Services.FeedbackService;
 using ECommerceApp.DTOs;
 using ECommerceApp.DTOs.FeedbackDTOs;
 using ECommerceApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 namespace ECommerceApp.Controllers
 {
     [ApiController]
@@ -94,6 +96,25 @@ namespace ECommerceApp.Controllers
                 return StatusCode(response.StatusCode, response);
             }
             return Ok(response);
+
+
         }
+
+        [HttpGet("GetFeedbackByCustomerId/{customerId}")]
+        public async Task<ActionResult<ApiResponse<List<FeedbackResponseDTO>>>> GetFeedbackByCustomerId(int customerId)
+        {
+            var response = await _feedbackService.GetFeedbackForProductAsync(customerId);
+
+            if (response.StatusCode != 200)
+                return StatusCode(response.StatusCode, response);
+
+            return Ok(response);
+        }
+
+
+
+
+
+
     }
 }
