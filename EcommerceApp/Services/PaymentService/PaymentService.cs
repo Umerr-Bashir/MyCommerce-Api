@@ -297,9 +297,10 @@ namespace ECommerceApp.Services
                 }
             },
                 Mode = "payment",
-                SuccessUrl = $"{req.BaseUrl}/payment-details/{req.}",
-                CancelUrl = $"{req.BaseUrl}/payment-cancel"
+                SuccessUrl = $"{req.BaseUrl}/payment-details/{req.OrderId}",
+                CancelUrl = $"{req.BaseUrl}/payment-cancel/{req.OrderId}"
             };
+
 
             var service = new SessionService();
             var session = await service.CreateAsync(options);
