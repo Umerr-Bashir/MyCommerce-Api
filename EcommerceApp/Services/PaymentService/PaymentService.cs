@@ -272,7 +272,7 @@ namespace ECommerceApp.Services
         }
 
 
-        public async Task<string> CreateCheckoutSessionAsync(StripeCheckoutDTO req)
+        public async Task<ApiResponse<StripeResponseDTO>>CreateCheckoutSessionAsync(StripeCheckoutDTO req)
         {
             // Set secret key
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
@@ -297,14 +297,20 @@ namespace ECommerceApp.Services
                 }
             },
                 Mode = "payment",
-                SuccessUrl = $"{req.BaseUrl}/payment-success",
+                SuccessUrl = $"{req.BaseUrl}/payment-details/{req.}",
                 CancelUrl = $"{req.BaseUrl}/payment-cancel"
             };
 
             var service = new SessionService();
             var session = await service.CreateAsync(options);
 
-            return session.Url; 
+            var responseData = new StripeResponseDTO
+            {
+                Url = session.Url
+            };
+
+            return new ApiResponse<StripeResponseDTO>(200, responseData);
+
         }
 
 

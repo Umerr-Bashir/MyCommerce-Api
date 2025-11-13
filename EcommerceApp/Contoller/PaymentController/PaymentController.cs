@@ -72,8 +72,8 @@ namespace ECommerceApp.Controllers
             return Ok(response);
         }
 
-        [HttpPost("StripeCheckout")]
-        public async Task<ActionResult<string>> StripeCheckout(StripeCheckoutDTO req)
+        [HttpPost("create-stripe-session")]
+        public async Task<ActionResult<ApiResponse<StripeResponseDTO>>> StripeCheckout(StripeCheckoutDTO req)
         {
             var response =  await _paymentService.CreateCheckoutSessionAsync(req);
             if (response== null)

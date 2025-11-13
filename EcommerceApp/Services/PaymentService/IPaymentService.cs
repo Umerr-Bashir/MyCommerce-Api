@@ -13,7 +13,7 @@ namespace EcommerceApp.Services.PaymentService
         Task<ApiResponse<PaymentResponseDTO>> GetPaymentByOrderIdAsync(int orderId);
         Task<ApiResponse<ConfirmationResponseDTO>> UpdatePaymentStatusAsync(PaymentStatusUpdateDTO statusUpdate);
         Task<ApiResponse<ConfirmationResponseDTO>> CompleteCODPaymentAsync(CODPaymentUpdateDTO codPaymentUpdateDTO);
-        Task<string> CreateCheckoutSessionAsync(StripeCheckoutDTO req);
+        Task<ApiResponse<StripeResponseDTO>> CreateCheckoutSessionAsync(StripeCheckoutDTO req);
 
         //Task<PaymentStatus> SimulatePaymentGateway();
 
