@@ -99,6 +99,7 @@ namespace ECommerceApp.Services.CategoryService
 
                 category.Name = categoryDto.Name;
                 category.Description = categoryDto.Description;
+                category.IsActive = categoryDto.IsActive;
 
                 await _context.SaveChangesAsync();
 
@@ -108,6 +109,8 @@ namespace ECommerceApp.Services.CategoryService
                 };
 
                 return new ApiResponse<ConfirmationResponseDTO>(200, confirmation);
+
+
             }
             catch (Exception ex)
             {
