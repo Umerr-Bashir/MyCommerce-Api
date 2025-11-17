@@ -291,7 +291,8 @@ namespace ECommerceApp.Services
                     {
                         Name = req.ProductName
                     },
-                    UnitAmount = req.UnitPrice / 282
+                    UnitAmount = (long)((req.UnitPrice / 292.0) * 100)
+
                 },
                 Quantity = req.Quantity
             }
