@@ -272,47 +272,43 @@ namespace ECommerceApp.Services
         }
 
 
-        public async Task<ApiResponse<StripeResponseDTO>>CreateCheckoutSessionAsync(StripeCheckoutDTO req)
+        public async Task<ApiResponse<StripeResponseDTO>> CreateCheckoutSessionAsync(StripeCheckoutDTO req)
         {
-            // Set secret key
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
 
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string> { "card" },
+
                 LineItems = new List<SessionLineItemOptions>
+        {
+            new SessionLineItemOptions
             {
-                new SessionLineItemOptions
+                PriceData = new SessionLineItemPriceDataOptions
                 {
-                    PriceData = new SessionLineItemPriceDataOptions
+                    Currency = "usd",
+                    ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
-                        Currency = req.Currency,
-                        ProductData = new SessionLineItemPriceDataProductDataOptions
-                        {
-                            Name = req.ProductName
-                        },
-                        UnitAmount = req.UnitPrice, 
+                        Name = req.ProductName
                     },
-                    Quantity = req.Quantity
-                }
-            },
+                    UnitAmount = req.UnitPrice * 100 
+                },
+                Quantity = req.Quantity
+            }
+        },
+
                 Mode = "payment",
                 SuccessUrl = $"{req.BaseUrl}/payment-details/{req.OrderId}",
                 CancelUrl = $"{req.BaseUrl}/payment-cancel/{req.OrderId}"
             };
 
-
             var service = new SessionService();
             var session = await service.CreateAsync(options);
 
-            var responseData = new StripeResponseDTO
-            {
-                Url = session.Url
-            };
-
-            return new ApiResponse<StripeResponseDTO>(200, responseData);
-
+            return new ApiResponse<StripeResponseDTO>(200, new StripeResponseDTO { Url = session.Url });
         }
+
+
 
 
 
