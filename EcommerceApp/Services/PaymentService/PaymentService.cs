@@ -291,7 +291,7 @@ namespace ECommerceApp.Services
                     {
                         Name = req.ProductName
                     },
-                    UnitAmount = req.UnitPrice * 100 
+                    UnitAmount = req.UnitPrice / 282
                 },
                 Quantity = req.Quantity
             }
@@ -299,7 +299,7 @@ namespace ECommerceApp.Services
 
                 Mode = "payment",
                 SuccessUrl = $"{req.BaseUrl}/payment-details/{req.OrderId}",
-                CancelUrl = $"{req.BaseUrl}/payment-cancel/{req.OrderId}"
+                CancelUrl = $"{req.BaseUrl}/my-order"
             };
 
             var service = new SessionService();
